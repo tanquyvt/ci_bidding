@@ -1,5 +1,4 @@
 <?php 
-
 $date = date("Y-m-d H:i:s");
 $unix = human_to_unix($date);
 ?>
@@ -30,7 +29,5 @@ $unix = human_to_unix($date);
 			';
 		}
 		?>
-
-		<script src="<?php echo base_url(); ?>img/holder.js"></script>
 	</div>
 </div>

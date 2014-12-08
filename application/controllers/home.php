@@ -13,10 +13,21 @@ class Home extends CI_Controller {
 	{
 		if ($this->session->userdata('signed_in')) {
 			$session_data = $this->session->userdata('signed_in');
-			$data['first_name'] = $session_data['first_name'];
-			$this->load->view('home_view', $data);
-		} else {
-			redirect('signin', 'refresh');
+			$data['email'] = $session_data['email'];
+			$data['page_title'] = "Home";
+
+			$this->load->view('partials/header_view', $data);
+			$this->load->view('partials/nav_view', $data);
+			$this->load->view('home_view');
+			$this->load->view('partials/footer_view');
+		} 
+		else {
+			$data['page_title'] = "Home";
+
+			$this->load->view('partials/header_view', $data);
+			$this->load->view('partials/nav_view');
+			$this->load->view('home_view');
+			$this->load->view('partials/footer_view');
 		}
 	}
 

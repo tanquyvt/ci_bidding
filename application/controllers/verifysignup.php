@@ -21,10 +21,13 @@ class Verifysignup extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|min_length[6]');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('signup_view_new', $data);
+			$data['page_title'] = "Sign up";
+			$this->load->view('partials/header_view', $data);
+			$this->load->view('user/signup');
+			$this->load->view('partials/footer_view');
 		} else {
 			$this->insert_database();
-			$this->load->view('success');
+			$this->load->view('user/success');
 		}
 	}
 

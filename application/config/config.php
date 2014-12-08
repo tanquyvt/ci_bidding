@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://127.0.0.1/ci_bidding/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -360,8 +360,4 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
-
-
-/* My CSS location config */
-$config['css'] = '/bootstrap/css/bootstrap.min.css';
 

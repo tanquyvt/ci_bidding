@@ -9,9 +9,12 @@ class Signup extends CI_Controller {
 
 	public function index()
 	{
-		// $this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->load->view('signup_view_new');
+
+		$data['page_title'] = "Sign up page";
+		$this->load->view('partials/header_view', $data);
+		$this->load->view('user/signup');
+		$this->load->view('partials/footer_view');
 	}
 
 }

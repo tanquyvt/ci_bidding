@@ -13,11 +13,16 @@ class VerifySignin extends CI_Controller {
 	{
 		$this->load->library('form_validation');
 
+		$data = $this->input->post(NULL, TRUE);
+
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('signin_view');
+			$data['page_title'] = "Sign in";
+			$this->load->view('partials/header_view', $data);
+			$this->load->view('user/signin');
+			$this->load->view('partials/footer_view');
 		} else {
 			redirect('home', 'refresh');
 		}
@@ -34,7 +39,7 @@ class VerifySignin extends CI_Controller {
 			foreach ($result as $row) {
 				$sess_array = array(
 					'uid' => $row['uid'],
-					'first_name' => $row['first_name']
+					'email' => $row['email']
 					);
 				$this->session->set_userdata('signed_in', $sess_array);
 			}

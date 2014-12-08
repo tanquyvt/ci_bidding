@@ -1,8 +1,15 @@
+	<!-- jQuery -->
+	<script src="//code.jquery.com/jquery.js"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="<?= base_url() . 'bootstrap/js/bootstrap.min.js'; ?>"></script>
+
+	<hr>
+
 	<div class="container">
-		<hr/>
-		<footer class="text-center">
-			<p>Copyright &copy 2014 Online Auction by Quynt</p>
-			<address>Contact: tanquyvt@gmail.com</address>
+		<footer class="footer">
+			<p class="text-muted">&copy; Online auction 2014</p>
 		</footer>
 	</div>
+
+	</body>
 </html>

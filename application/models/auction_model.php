@@ -8,12 +8,7 @@ class Auction_model extends CI_Model {
 		$this->load->helper('date');
 		$this->load->database('default');
 	}
-
-	public function index()
-	{
-		
-	}
-
+	
 	public function insertItem($data)
 	{
 		$this->db->insert('item', $data);
@@ -69,6 +64,13 @@ class Auction_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get9Auction($offset)
+	{
+		$query = $this->db->get('item', 9, $offset);
+
+		return $query->result_array();
+	}
+
 	public function updateStatus($iid, $value)
 	{
 		$this->db->update('item', array('is_active' => $value), array('iid' => $iid));
@@ -87,6 +89,14 @@ class Auction_model extends CI_Model {
 				$this->updateStatus($item['iid'], 0);
 			}
 		}
+	}
+
+	public function pagination()
+	{
+		$isum = $this->db->count_all('item');
+		$psum = $isum / 9;
+
+		return $psum;
 	}
 
 }

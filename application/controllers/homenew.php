@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Signin extends CI_Controller {
+class Homenew extends CI_Controller {
 
 	public function __construct()
 	{
@@ -9,15 +9,15 @@ class Signin extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->library('form_validation');
-		
-		$data['page_title'] = "Sign in page";
+		$this->load->helper('date');
+		$data['page_title'] = "Home";
 		$this->load->view('partials/header_view', $data);
-		$this->load->view('user/signin');
+		$this->load->view('partials/nav_view');
+		$this->load->view('home_view', $data);
 		$this->load->view('partials/footer_view');
 	}
 
 }
 
-/* End of file signin.php */
-/* Location: ./application/controllers/signin.php */
+/* End of file homenew.php */
+/* Location: ./application/controllers/homenew.php */
