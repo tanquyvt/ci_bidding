@@ -1,33 +1,43 @@
 <?php 
-$date = date("Y-m-d H:i:s");
-$unix = human_to_unix($date);
+$now = date("Y-m-d H:i:s");
+$now_unix = human_to_unix($now);
 ?>
 <div class="container">
-	<div class="row">
+	<ul class="list-group">
+		<li class="list-group-item">
+			<h3>Something about sorting...</h3>
+		</li>
+		
+		<?php foreach ($results as $row): ?>
 		<?php 
-		foreach ($auction as $auc) {
-			//$sd = human_to_unix($auc['start_time']);
-			$ed = human_to_unix($auc['end_time']);
-			echo '
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-			<div class="thumbnail">
-			<img data-src="holder.js/100x100" alt="Thumbnail" class="img-thumbnail img-responsive" />
-			<div class="caption">
-			<h3><a href="' . base_url() . 'auction/detail/'. $auc['iid'] .'">'. $auc['title'] .'</a></h3>
-			<p>'. $auc['description'] .'</p>
-			<p>Start time: '. $auc['start_time'] .'</p>
-			<p>Now: '. $date = date("Y-m-d H:i:s") .'</p>
-			<p>End time: '. $auc['end_time'] .'</p>';
-			if ($auc['is_active'] == 0) {
-				echo "<p>Expired!</p>";
+			$end_unix = human_to_unix($row->end_time);
+			if ($now_unix >= $end_unix) {
+				$timeleft = "Ended ";
 			} else {
-				echo '<p>'. timespan($unix, $ed) .'</p>';
+				$timeleft = timespan($now_unix, $end_unix) . " left ";
 			}
-			echo '</div>
+			
+
+		 ?>
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					<img data-src="holder.js/175x175" alt="item img" class="img-thumbnail">
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<h3><a href="<?= base_url() . 'auction/detail/'. $row->iid; ?>"><?= $row->title; ?></a></h3>
+					<h3><?= $row->hbid . " USD"; ?></h3>
+					<p><b><?= $timeleft; ?>(<?= date_format(date_create($row->end_time), "l, g A"); ?>)</b></p>
+					<p><?= $row->nbids ." bid(s)"; ?></p>
+				</div>
 			</div>
-			</div>
-			';
-		}
-		?>
-	</div>
+		</li>
+
+		<?php endforeach; ?>
+
+		<li class="list-group-item">
+			<p><?= $links; ?></p>
+		</li>
+		
+	</ul>
 </div>

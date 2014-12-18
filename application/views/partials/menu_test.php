@@ -9,7 +9,7 @@
 				Auction <span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu" role="menu">
-				<li role="presentation"><a role="menuitem" href="auction/add">Add</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="auction/add">Add</a></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="#">List</a></li>
 			</ul>
 		</li>

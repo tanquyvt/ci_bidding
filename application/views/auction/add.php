@@ -1,7 +1,6 @@
 <div class="container">
-
 	<form action="<?php echo base_url(); ?>auction/confirm" method="POST" role="form">
-
+		<legend>Auction add</legend>
 		<div class="form-group">
 			<label for="">Title</label>
 			<input type="text" name="title" id="inputTitle" class="form-control" required="required" >
@@ -39,7 +38,7 @@
 
 		<div class="form-group">
 			<label for="">Increment</label>
-			<input type="number" name="increment" id="inputIncrement" class="form-control" value="" min="" max="" step="" required="required" title="Bước giá">
+			<input type="number" name="increment" id="inputIncrement" class="form-control" required="required" title="Bước giá">
 		</div>
 
 		<div class="form-group">
@@ -48,7 +47,9 @@
 		</div>
 
 		<!-- Hidden inputs -->
-		<?php $start_time = date_timestamp_get(date_create()); // local datetime strings	?>
+		<?php 
+			$start_time = date("Y-m-d H:i:s"); // local datetime strings
+			?>
 		<input type="hidden" name="start_time" id="inputStart_time" class="form-control" value="<?php echo $start_time; ?>">
 
 		<button type="submit" class="btn btn-primary">Submit</button>

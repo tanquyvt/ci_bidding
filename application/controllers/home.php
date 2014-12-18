@@ -18,16 +18,11 @@ class Home extends CI_Controller {
 
 			$this->load->view('partials/header_view', $data);
 			$this->load->view('partials/nav_view', $data);
+			$this->load->view('partials/menu_test');
 			$this->load->view('home_view');
 			$this->load->view('partials/footer_view');
-		} 
-		else {
-			$data['page_title'] = "Home";
-
-			$this->load->view('partials/header_view', $data);
-			$this->load->view('partials/nav_view');
-			$this->load->view('home_view');
-			$this->load->view('partials/footer_view');
+		} else {
+			redirect('signin', 'refresh');
 		}
 	}
 

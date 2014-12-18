@@ -8,17 +8,12 @@ class Auction_model extends CI_Model {
 		$this->load->helper('date');
 		$this->load->database('default');
 	}
-	
-	public function insertItem($data)
-	{
-		$this->db->insert('item', $data);
-
-		return $this->db->insert_id();
-	}
 
 	public function insertAuction($data)
 	{
-		$this->db->insert('auction', $data);
+		$this->db->insert('item', $data);
+		$iid = $this->db->insert_id();
+		$this->db->insert('auction', array('iid' => $iid, 'hbid' => $data['starting_bid']));
 	}
 
 	public function getCategory($cid = FALSE)
@@ -37,38 +32,6 @@ class Auction_model extends CI_Model {
 			}
 			return $query->row();
 		}
-	}
-
-	public function getItem($iid = FALSE)
-	{
-		if ($iid === FALSE) {
-			$query = $this->db->get('item');
-
-			return $query->result_array();
-		}
-		$query = $this->db->get_where('item', array('iid' => $iid));
-
-		return $query->row_array();
-		
-	}
-
-	public function getAuction($aid = FALSE)
-	{
-		if ($aid === FALSE) {
-			$query = $this->db->get('item');
-			
-			return $query->result_array();
-		}
-
-		$query = $this->db->get_where('auction', array('aid' => $aid));
-		return $query->row_array();
-	}
-
-	public function get9Auction($offset)
-	{
-		$query = $this->db->get('item', 9, $offset);
-
-		return $query->result_array();
 	}
 
 	public function updateStatus($iid, $value)
@@ -91,12 +54,55 @@ class Auction_model extends CI_Model {
 		}
 	}
 
-	public function pagination()
+	public function record_count()
 	{
-		$isum = $this->db->count_all('item');
-		$psum = $isum / 9;
+		return $this->db->count_all('auction');
+	}
 
-		return $psum;
+	public function fetch_auctions($limit, $start)
+	{
+		$this->db->limit($limit, $start);
+
+		$this->db->select('*');
+		$this->db->from('item');
+		$this->db->join('auction', 'item.iid = auction.iid', 'inner');
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return FALSE;
+	}
+
+	public function detail_auction($iid)
+	{
+		$this->db->select('*');
+		$this->db->from('item');
+		$this->db->where('item.iid', $iid);
+		$this->db->join('auction', 'item.iid = auction.iid', 'inner');
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return FALSE;
+	}
+
+	public function update_auction($set)
+	{
+		$data = array(
+				'hbid' => $set['bid_price'],
+				'nbids' => $set['nbids'] + 1
+			);
+		$this->db->update('auction', $data, array('iid' => $set['iid']));		
 	}
 
 }
